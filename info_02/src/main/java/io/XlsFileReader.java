@@ -36,7 +36,7 @@ public class XlsFileReader {
             university.setId(currentRow.getCell(0).getStringCellValue());
             university.setFullName(currentRow.getCell(1).getStringCellValue());
             university.setShortName(currentRow.getCell(2).getStringCellValue());
-            university.setYearOfFoundation((int) currentRow.getCell(3).getNumericCellValue());
+            university.setYearOfFoundation((int)currentRow.getCell(3).getNumericCellValue());
             university.setMainProfile(StudyProfile.valueOf(currentRow.getCell(4).getStringCellValue()));
             // adding class object into the list
             universities.add(university);

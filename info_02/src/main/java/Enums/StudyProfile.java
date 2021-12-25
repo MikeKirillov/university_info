@@ -7,9 +7,14 @@ public enum StudyProfile {
     ACCOUNTING("Accounting and finance"),
     BIOLOGY("Biology"),
     HEALTHCARE("Health and social care"),
-    LAW("Law"),
     HISTORY("History"),
-    MANAGEMENT("Business and management");
+    MANAGEMENT("Business and management"),
+    PHYSICS("Physics"),
+    COMPUTER_SCIENCE("Computer science"),
+    MATHEMATICS("Math"),
+    JURISPRUDENCE("Law"),
+    MEDICINE("Medicine"),
+    LINGUISTICS("Linguistic");
 
     private String profileName;
 
