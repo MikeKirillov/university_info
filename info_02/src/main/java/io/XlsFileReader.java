@@ -23,9 +23,8 @@ public class XlsFileReader {
         List<University> universities = new ArrayList<>();
 
         FileInputStream inputStream = new FileInputStream(filePath);
-
         String subStr = getSubStr(filePath);
-        int universitySheetIndex = 1;
+        int universitySheetIndex = 2;
 
         Iterator<Row> rows = getIteratorRows(inputStream, subStr, universitySheetIndex);
         rows.hasNext();
@@ -50,7 +49,7 @@ public class XlsFileReader {
 
         FileInputStream inputStream = new FileInputStream(filePath);
         String subStr = getSubStr(filePath);
-        int studentSheetIndex = 0;
+        int studentSheetIndex = 1;
 
         Iterator<Row> rows = getIteratorRows(inputStream, subStr, studentSheetIndex);
         rows.hasNext();// skipping top row of column names
@@ -81,8 +80,7 @@ public class XlsFileReader {
             case "xls" -> getXlsRows(inputStream, sheetIndex);
             default -> null;
         };
-
-        // alternate
+        // alternate view 01
 /*
         if (subStr.equals("xlsx")) {
             return getXlsxRows(inputStream, sheetIndex);
@@ -90,8 +88,7 @@ public class XlsFileReader {
             return getXlsRows(inputStream, sheetIndex);
         } else return rows;
 */
-
-        // alternate
+        // alternate view 02
 /*
         switch (subStr) {
             case "xlsx":
@@ -112,14 +109,14 @@ public class XlsFileReader {
     private static Iterator<Row> getXlsxRows(FileInputStream inputStream, int sheetIndex) throws IOException {
         Iterator<Row> rows;
         XSSFWorkbook xwb = new XSSFWorkbook(inputStream);
-        XSSFSheet xSheetz = xwb.getSheetAt(sheetIndex);
-        return rows = xSheetz.iterator();
+        XSSFSheet sheet = xwb.getSheetAt(sheetIndex);
+        return rows = sheet.iterator();
     }
 
     private static Iterator<Row> getXlsRows(FileInputStream inputStream, int sheetIndex) throws IOException {
         Iterator<Row> rows;
         HSSFWorkbook hwb = new HSSFWorkbook(inputStream);
-        HSSFSheet hSheetz = hwb.getSheetAt(sheetIndex);
-        return rows = hSheetz.iterator();
+        HSSFSheet sheet = hwb.getSheetAt(sheetIndex);
+        return rows = sheet.iterator();
     }
 }
