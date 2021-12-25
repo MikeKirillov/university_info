@@ -6,11 +6,11 @@ import java.io.IOException;
 import java.util.List;
 
 public class Main {
-    private final static String filePath = "src/main/resources/universityInfo.xlsx";
+    private final static String FILE_PATH = "src/main/resources/universityInfo.xlsx";
 
     public static void main(String[] args) throws IOException {
-        List<University> universities = XlsFileReader.readUniversity(filePath);
-        List<Student> students = XlsFileReader.readStudent(filePath);
+        List<University> universities = XlsFileReader.readUniversity(FILE_PATH);
+        List<Student> students = XlsFileReader.readStudent(FILE_PATH);
 
         for (University university : universities) {
             System.out.println(university);

@@ -49,12 +49,11 @@ public class XlsFileReader {
         List<Student> students = new ArrayList<>();
 
         FileInputStream inputStream = new FileInputStream(filePath);
-
         String subStr = getSubStr(filePath);
         int studentSheetIndex = 0;
 
         Iterator<Row> rows = getIteratorRows(inputStream, subStr, studentSheetIndex);
-        rows.hasNext();
+        rows.hasNext();// skipping top row of column names
 
         while (rows.hasNext()) {
             Row currentRow = rows.next();
@@ -77,22 +76,42 @@ public class XlsFileReader {
     }
 
     private static Iterator<Row> getIteratorRows(FileInputStream inputStream, String subStr, int sheetIndex) throws IOException {
-        Iterator<Row> rows = null;
+        Iterator<Row> rows = switch (subStr) {
+            case "xlsx" -> getXlsxRows(inputStream, sheetIndex);
+            case "xls" -> getXlsRows(inputStream, sheetIndex);
+            default -> null;
+        };
 
+        // alternate
+/*
         if (subStr.equals("xlsx")) {
             return getXlsxRows(inputStream, sheetIndex);
         } else if (subStr.equals("xls")) {
             return getXlsRows(inputStream, sheetIndex);
         } else return rows;
+*/
+
+        // alternate
+/*
+        switch (subStr) {
+            case "xlsx":
+                rows = getXlsxRows(inputStream, sheetIndex);
+                break;
+            case "xls":
+                rows = getXlsRows(inputStream, sheetIndex);
+                break;
+            default:
+                rows = null;
+                break;
+        }
+*/
+
+        return rows;
     }
 
     private static Iterator<Row> getXlsxRows(FileInputStream inputStream, int sheetIndex) throws IOException {
         Iterator<Row> rows;
         XSSFWorkbook xwb = new XSSFWorkbook(inputStream);
-//        String sheetName = xwb.getSheetName(1);
-//        XSSFSheet xSheet = xwb.getSheet(sheetName);
-//        return rows = xSheet.iterator();
-
         XSSFSheet xSheetz = xwb.getSheetAt(sheetIndex);
         return rows = xSheetz.iterator();
     }
@@ -100,10 +119,6 @@ public class XlsFileReader {
     private static Iterator<Row> getXlsRows(FileInputStream inputStream, int sheetIndex) throws IOException {
         Iterator<Row> rows;
         HSSFWorkbook hwb = new HSSFWorkbook(inputStream);
-//        String sheetName = hwb.getSheetName(1);
-//        HSSFSheet hSheet = hwb.getSheet(sheetName);
-//        return rows = hSheet.iterator();
-
         HSSFSheet hSheetz = hwb.getSheetAt(sheetIndex);
         return rows = hSheetz.iterator();
     }
