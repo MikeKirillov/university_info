@@ -30,14 +30,15 @@ public class XlsFileReader {
         rows.hasNext();
 
         while (rows.hasNext()) {
-            Row currentRow = rows.next();
+            Row row = rows.next();
             University university = new University();
             // filling class object with column values per file rows in a condition
-            university.setId(currentRow.getCell(0).getStringCellValue());
-            university.setFullName(currentRow.getCell(1).getStringCellValue());
-            university.setShortName(currentRow.getCell(2).getStringCellValue());
-            university.setYearOfFoundation((int)currentRow.getCell(3).getNumericCellValue());
-            university.setMainProfile(StudyProfile.valueOf(currentRow.getCell(4).getStringCellValue()));
+            university.setId(row.getCell(0).getStringCellValue());
+            university.setFullName(row.getCell(1).getStringCellValue());
+            university.setShortName(row.getCell(2).getStringCellValue());
+            university.setYearOfFoundation((int) row.getCell(3).getNumericCellValue());
+            university.setMainProfile(StudyProfile.valueOf(StudyProfile.class,
+                    row.getCell(4).getStringCellValue()));
             // adding class object into the list
             universities.add(university);
         }
@@ -55,13 +56,13 @@ public class XlsFileReader {
         rows.hasNext();// skipping top row of column names
 
         while (rows.hasNext()) {
-            Row currentRow = rows.next();
+            Row row = rows.next();
             Student student = new Student();
             // filling class object with column values per file rows in a condition
-            student.setUniversityId(currentRow.getCell(0).getStringCellValue());
-            student.setFullName(currentRow.getCell(1).getStringCellValue());
-            student.setCurrentCourseNumber((int) currentRow.getCell(2).getNumericCellValue());
-            student.setAvgExamScore((float) currentRow.getCell(3).getNumericCellValue());
+            student.setUniversityId(row.getCell(0).getStringCellValue());
+            student.setFullName(row.getCell(1).getStringCellValue());
+            student.setCurrentCourseNumber((int) row.getCell(2).getNumericCellValue());
+            student.setAvgExamScore((float) row.getCell(3).getNumericCellValue());
             // adding class object into the list
             students.add(student);
         }

@@ -1,3 +1,4 @@
+import Enums.StudyProfile;
 import Models.Student;
 import Models.University;
 import io.XlsFileReader;
@@ -10,7 +11,6 @@ public class Main {
             "info_02/src/main/resources/universityInfo.xlsx";
 
     public static void main(String[] args) throws IOException {
-
         List<University> universities = XlsFileReader.readUniversity(PATH);
         List<Student> students = XlsFileReader.readStudent(PATH);
 
