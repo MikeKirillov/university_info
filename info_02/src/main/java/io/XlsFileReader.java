@@ -27,7 +27,10 @@ public class XlsFileReader {
         int universitySheetIndex = 2;
 
         Iterator<Row> rows = getIteratorRows(inputStream, subStr, universitySheetIndex);
-        rows.hasNext();
+        // skipping top row of column names
+        rows.next();
+
+        // possible to add manual deleting of 1st column name row
 
         while (rows.hasNext()) {
             Row row = rows.next();
@@ -37,8 +40,10 @@ public class XlsFileReader {
             university.setFullName(row.getCell(1).getStringCellValue());
             university.setShortName(row.getCell(2).getStringCellValue());
             university.setYearOfFoundation((int) row.getCell(3).getNumericCellValue());
-            university.setMainProfile(StudyProfile.valueOf(StudyProfile.class,
-                    row.getCell(4).getStringCellValue()));
+
+//            StudyProfile sp = StudyProfile.valueOf(row.getCell(4).getStringCellValue().trim().toUpperCase());
+//            university.setMainProfile(sp);
+            university.setMainProfile(StudyProfile.valueOf(StudyProfile.class, row.getCell(4).getStringCellValue()));
             // adding class object into the list
             universities.add(university);
         }
@@ -53,7 +58,8 @@ public class XlsFileReader {
         int studentSheetIndex = 1;
 
         Iterator<Row> rows = getIteratorRows(inputStream, subStr, studentSheetIndex);
-        rows.hasNext();// skipping top row of column names
+        // skipping top row of column names
+        rows.next();
 
         while (rows.hasNext()) {
             Row row = rows.next();

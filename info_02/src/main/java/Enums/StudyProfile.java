@@ -2,9 +2,9 @@ package Enums;
 
 public enum StudyProfile {
     PHYSICS("Physics"),
-    MATHEMATICS("Math"),
     MEDICINE("Medicine"),
-    LINGUISTICS("Linguistic");
+    LINGUISTICS("Linguistic"),
+    MATHEMATICS("Math");
 
     private String profileName;
 
@@ -13,6 +13,6 @@ public enum StudyProfile {
     }
 
     public String getProfileName() {
-        return profileName;
+        return this.profileName;
     }
 }
