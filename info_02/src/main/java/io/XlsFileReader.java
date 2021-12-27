@@ -1,5 +1,6 @@
 package io;
 
+import Enums.FileFormat;
 import Enums.StudyProfile;
 import Models.Student;
 import Models.University;
@@ -14,6 +15,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import static Enums.FileFormat.XLS;
+import static Enums.FileFormat.XLSX;
 
 public class XlsFileReader {
     private XlsFileReader() {
@@ -30,8 +34,6 @@ public class XlsFileReader {
         // skipping top row of column names
         rows.next();
 
-        // possible to add manual deleting of 1st column name row
-
         while (rows.hasNext()) {
             Row row = rows.next();
             University university = new University();
@@ -41,11 +43,15 @@ public class XlsFileReader {
             university.setShortName(row.getCell(2).getStringCellValue());
             university.setYearOfFoundation((int) row.getCell(3).getNumericCellValue());
 
-//            StudyProfile sp = StudyProfile.valueOf(row.getCell(4).getStringCellValue().trim().toUpperCase());
-//            university.setMainProfile(sp);
-            university.setMainProfile(StudyProfile.valueOf(StudyProfile.class, row.getCell(4).getStringCellValue()));
-            // adding class object into the list
-            universities.add(university);
+            String sp = row.getCell(4).getStringCellValue().toUpperCase().trim();
+            if (sp != null && !sp.isBlank()) {
+                university.setMainProfile(StudyProfile.valueOf(StudyProfile.class, sp));
+            }
+
+            if (!university.isEmpty()) {
+                // adding class object into the list
+                universities.add(university);
+            }
         }
         return universities;
     }
@@ -77,40 +83,48 @@ public class XlsFileReader {
 
     private static String getSubStr(String filePath) {
         int dotIndex = filePath.lastIndexOf(".");
-        String subStr = filePath.substring(dotIndex + 1);
-        return subStr;
+        return filePath.substring(dotIndex + 1);
     }
 
-    private static Iterator<Row> getIteratorRows(FileInputStream inputStream, String subStr, int sheetIndex) throws IOException {
-        Iterator<Row> rows = switch (subStr) {
-            case "xlsx" -> getXlsxRows(inputStream, sheetIndex);
-            case "xls" -> getXlsRows(inputStream, sheetIndex);
-            default -> null;
-        };
-        // alternate view 01
-/*
-        if (subStr.equals("xlsx")) {
-            return getXlsxRows(inputStream, sheetIndex);
-        } else if (subStr.equals("xls")) {
-            return getXlsRows(inputStream, sheetIndex);
-        } else return rows;
-*/
-        // alternate view 02
-/*
-        switch (subStr) {
-            case "xlsx":
-                rows = getXlsxRows(inputStream, sheetIndex);
-                break;
-            case "xls":
-                rows = getXlsRows(inputStream, sheetIndex);
-                break;
-            default:
-                rows = null;
-                break;
-        }
-*/
+//    private static Iterator<Row> getIteratorRows(FileInputStream inputStream, String subStr, int sheetIndex) throws IOException {
+//        return switch (subStr) {
+//            case "xlsx" -> getXlsxRows(inputStream, sheetIndex);
+//            case "xls" -> getXlsRows(inputStream, sheetIndex);
+//            default -> null;
+//        };
+//        // alternate view 01
+///*
+//        if (subStr.equals("xlsx")) {
+//            return getXlsxRows(inputStream, sheetIndex);
+//        } else if (subStr.equals("xls")) {
+//            return getXlsRows(inputStream, sheetIndex);
+//        } else return rows;
+//*/
+//        // alternate view 02
+///*
+//        return switch (subStr) {
+//            case "xlsx":
+//                rows = getXlsxRows(inputStream, sheetIndex);
+//                break;
+//            case "xls":
+//                rows = getXlsRows(inputStream, sheetIndex);
+//                break;
+//            default:
+//                rows = null;
+//                break;
+//        };
+//*/
+//    }
 
-        return rows;
+    private static Iterator<Row> getIteratorRows(FileInputStream inputStream, String subStr, int sheetIndex) throws IOException {
+        FileFormat type = FileFormat.getType(subStr);
+        if (XLSX == type) {
+            return getXlsxRows(inputStream, sheetIndex);
+        } else if (XLS == type) {
+            return getXlsRows(inputStream, sheetIndex);
+        } else {
+            throw new IllegalArgumentException("не определен формат файла");
+        }
     }
 
     private static Iterator<Row> getXlsxRows(FileInputStream inputStream, int sheetIndex) throws IOException {

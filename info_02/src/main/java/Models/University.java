@@ -50,6 +50,14 @@ public class University {
         this.mainProfile = mainProfile;
     }
 
+    public boolean isEmpty() {
+        return (this.id == null || this.id.isBlank()) &&
+                (this.fullName == null || this.fullName.isBlank()) &&
+                (this.shortName == null || this.shortName.isBlank()) &&
+                (this.yearOfFoundation == 0) &&
+                (this.mainProfile == null || (this.mainProfile.getProfileName()).isBlank());
+    }
+
     @Override
     public String toString() {
         return "University:" +
