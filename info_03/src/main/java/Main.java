@@ -1,5 +1,10 @@
+import Comparator.StudentComparator;
+import Comparator.UniversityComparator;
+import Enums.StudentComparatorType;
+import Enums.UniversityComparatorType;
 import Models.Student;
 import Models.University;
+import Util.ComparatorUtil;
 import io.XlsFileReader;
 
 import java.io.IOException;
@@ -11,14 +16,15 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         List<University> universities = XlsFileReader.readUniversity(PATH);
+        UniversityComparator universityComparator = ComparatorUtil.getUniversityComparator(UniversityComparatorType.YEAR);
+        universities.stream()
+                .sorted(universityComparator)
+                .forEach(System.out::println);
+
         List<Student> students = XlsFileReader.readStudent(PATH);
-
-        for (University university : universities) {
-            System.out.println(university);
-        }
-
-        for (Student student : students) {
-            System.out.println(student);
-        }
+        StudentComparator studentComparator = ComparatorUtil.getStudentComparator(StudentComparatorType.AVG_EXAM_SCORE);
+        students.stream()
+                .sorted(studentComparator)
+                .forEach(System.out::println);
     }
 }
