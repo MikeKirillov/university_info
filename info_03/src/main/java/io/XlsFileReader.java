@@ -86,36 +86,6 @@ public class XlsFileReader {
         return filePath.substring(dotIndex + 1);
     }
 
-//    private static Iterator<Row> getIteratorRows(FileInputStream inputStream, String subStr, int sheetIndex) throws IOException {
-//        return switch (subStr) {
-//            case "xlsx" -> getXlsxRows(inputStream, sheetIndex);
-//            case "xls" -> getXlsRows(inputStream, sheetIndex);
-//            default -> null;
-//        };
-//        // alternate view 01
-///*
-//        if (subStr.equals("xlsx")) {
-//            return getXlsxRows(inputStream, sheetIndex);
-//        } else if (subStr.equals("xls")) {
-//            return getXlsRows(inputStream, sheetIndex);
-//        } else return rows;
-//*/
-//        // alternate view 02
-///*
-//        return switch (subStr) {
-//            case "xlsx":
-//                rows = getXlsxRows(inputStream, sheetIndex);
-//                break;
-//            case "xls":
-//                rows = getXlsRows(inputStream, sheetIndex);
-//                break;
-//            default:
-//                rows = null;
-//                break;
-//        };
-//*/
-//    }
-
     private static Iterator<Row> getIteratorRows(FileInputStream inputStream, String subStr, int sheetIndex) throws IOException {
         FileFormat type = FileFormat.getType(subStr);
         if (XLSX == type) {
