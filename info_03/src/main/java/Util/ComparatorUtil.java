@@ -14,7 +14,6 @@ public class ComparatorUtil {
             case COURSE -> new StudentCourseComparator();
             case FULL_NAME -> new StudentFullNameComparator();
             case UNIVERSITY_ID -> new StudentUniversityIdComparator();
-            default -> new StudentFullNameComparator();
         };
     }
 
@@ -25,7 +24,6 @@ public class ComparatorUtil {
             case PROFILE -> new UniversityProfileComparator();
             case SHORT_NAME -> new UniversityShortNameComparator();
             case YEAR -> new UniversityYearComparator();
-            default -> new UniversityFullNameComparator();
         };
     }
 }
