@@ -49,7 +49,7 @@ public class JsonUtil {
     }
 
     // JSON to University objects list
-    public static List<University> jsonListUniversity(String json) {
+    public static List<University> jsonUniversityList(String json) {
         return new Gson().fromJson(json, new TypeToken<List<University>>() {
         }.getType());
     }
