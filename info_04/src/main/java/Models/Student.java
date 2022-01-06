@@ -50,9 +50,9 @@ public class Student {
     @Override
     public String toString() {
         return "Student:" +
-                "\nfullName = " + fullName +
-                ",\nuniversityId = " + universityId +
-                ",\ncurrentCourseNumber = " + currentCourseNumber +
-                ",\navgExamScore = " + avgExamScore;
+                " fullName = " + fullName +
+                ", universityId = " + universityId +
+                ", currentCourseNumber = " + currentCourseNumber +
+                ", avgExamScore = " + avgExamScore;
     }
 }

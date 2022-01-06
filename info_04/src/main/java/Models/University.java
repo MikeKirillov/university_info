@@ -69,10 +69,10 @@ public class University {
     @Override
     public String toString() {
         return "University:" +
-                "\nid = " + id +
-                ",\nfullName = " + fullName +
-                ",\nshortName = " + shortName +
-                ",\nyearOfFoundation = " + yearOfFoundation +
-                ",\nmainProfile = " + mainProfile;
+                " id = " + id +
+                ", fullName = " + fullName +
+                ", shortName = " + shortName +
+                ", yearOfFoundation = " + yearOfFoundation +
+                ", mainProfile = " + mainProfile;
     }
 }
