@@ -14,6 +14,7 @@
         <module>info_03</module>
         <module>info_04</module>
         <module>info_05</module>
+        <module>info_06</module>
     </modules>
 
     <properties>
